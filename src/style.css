@@ -1,9 +1,5 @@
 body{
   display: flex;
   flex-direction: column;
-  background-color: #c73232 ;
-}
-
-#container{
-  min-height: 100vh;
+  /* background-color: #c73232 ; */
 }
