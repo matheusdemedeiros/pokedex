@@ -1,23 +1,16 @@
 import axios from "axios";
-import { PokemonRepository } from "./infrastructure/pokemonRepository";
-import { RequesterApiAxios } from "./infrastructure/requestApiAxios";
 import { IHTMLPage } from "./shared/htmlPage.interface";
-import { IRequesterApi } from "./shared/requestApi.interface";
 
 class Index implements IHTMLPage {
-  private urlDataPokemon: string;
   private urlImagePokemon: string;
   private carousel: HTMLDivElement;
-  private pokemonData: HTMLDivElement;
-  private requester: IRequesterApi;
   private pokemonIds: number[] = [];
   private buttonSearch:HTMLButtonElement;
   private txtSearch:HTMLInputElement;
   private divPokemon: HTMLDivElement;
 
-  constructor(requester: IRequesterApi) {
-    this.requester = requester;
-    this.urlDataPokemon = "https://pokeapi.co/api/v2/pokemon/";
+
+  constructor() {
     this.urlImagePokemon =
       "https://assets.pokemon.com/assets/cms2/img/pokedex/detail/";
     this.configureElements();
@@ -28,7 +21,6 @@ class Index implements IHTMLPage {
 
   configureElements(): void {
     this.carousel = document.getElementById("carousel") as HTMLDivElement;
-    this.pokemonData = document.getElementById("pokemonData") as HTMLDivElement;
     this.buttonSearch = document.getElementById("btnSearch") as HTMLButtonElement;
     this.txtSearch = document.getElementById("search") as HTMLInputElement;
     this.buttonSearch.addEventListener("click", () => {this.searchPokemon(this.txtSearch.value.toLowerCase())});
@@ -168,7 +160,6 @@ class Index implements IHTMLPage {
       } else if (idPokemon.length === 2) {
         idPokemon = "0" + idPokemon;
       }
-      const url = this.urlImagePokemon + idPokemon + ".png";
       const color = this.backgroundColorByType(tipo);
       this.divPokemon.innerHTML = "";
 
@@ -188,4 +179,4 @@ class Index implements IHTMLPage {
   }
 }
 
-new Index(new RequesterApiAxios());
+new Index();
